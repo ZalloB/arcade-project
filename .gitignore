@@ -1,6 +1,16 @@
+# Jetbrain Rider Cache
+.idea/
+Assets/Plugins/Editor/JetBrains*
+
+# Visual Studio Code
+.vscode/
+
+
+### Unity ###
 [Ll]ibrary/
 [Tt]emp/
 [Oo]bj/
+[Ll]ogs/
 [Bb]uild/
 [Bb]uilds/
 Assets/AssetStoreTools*
@@ -23,6 +33,7 @@ ExportedObj/
 *.svd
 *.pdb
 *.opendb
+*.VC.db
 
 # Unity3D generated meta files
 *.pidb.meta
