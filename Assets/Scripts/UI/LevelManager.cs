@@ -1,14 +1,13 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 namespace UI
 {
     public class LevelManager : MonoBehaviour
     {
 
-        public void LoadLevel(string name)
+        public void LoadLevel(string levelName)
         {
-            SceneManager.LoadScene(name);
+            SceneManager.LoadScene(levelName);
         }
 
         public void Quit()
