@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-namespace UI
+namespace Game.UI
 {
     public class MenuGameManager : MonoBehaviour
     {
@@ -14,7 +14,6 @@ namespace UI
         
         public void MenuItemsVisibility()
         {
-            Debug.Log("Patata.......");
             var image = menuItemImage;
             
             image.color = !menuItemsPanel.activeSelf ? new Color(253, 230,0) : Color.white;
