@@ -28879,8 +28879,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shopMachines:
-  - {fileID: 1982544303}
   - {fileID: 2027460947}
+  - {fileID: 1982544303}
   shopDecorativeObjects:
   - {fileID: 0}
 --- !u!1 &1280113913 stripped
@@ -46055,16 +46055,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6520294561293402773, guid: 501175feef1858c459f4467d13b830d0,
-        type: 3}
-      propertyPath: m_Size.x
-      value: 3.517211
-      objectReference: {fileID: 0}
-    - target: {fileID: 6520294561293402773, guid: 501175feef1858c459f4467d13b830d0,
-        type: 3}
-      propertyPath: m_Center.x
-      value: 0.05610071
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 501175feef1858c459f4467d13b830d0, type: 3}

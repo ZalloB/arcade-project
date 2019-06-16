@@ -5,7 +5,7 @@ namespace Game.Managers
     public class ClientManager : MonoBehaviour
     {
         public GameObject clientPrefab;
-        private int _numberOfInitialClients = 6;
+        private int _numberOfInitialClients = 5;
         private GameObject _spawn;
 
         private void Start()
