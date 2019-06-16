@@ -10,7 +10,8 @@ namespace Game.UI
         private Image menuItemImage;
         [SerializeField]
         private GameObject menuItemsPanel;
-        
+
+        public GameObject optionsUiCanvas;
         
         public void MenuItemsVisibility()
         {
@@ -20,6 +21,14 @@ namespace Game.UI
             
             menuItemsPanel.SetActive(!menuItemsPanel.activeSelf);
             
+        }
+
+        private void Update()
+        {
+            if (Input.GetKeyUp(KeyCode.Escape))
+            {
+                optionsUiCanvas.SetActive(!optionsUiCanvas.activeSelf);
+            }
         }
     }
 }

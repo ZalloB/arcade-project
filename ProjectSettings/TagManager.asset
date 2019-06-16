@@ -5,6 +5,11 @@ TagManager:
   serializedVersion: 2
   tags:
   - uiManager
+  - Client
+  - Machine
+  - Despawn
+  - Spawn
+  - Buildable
   layers:
   - Default
   - TransparentFX
