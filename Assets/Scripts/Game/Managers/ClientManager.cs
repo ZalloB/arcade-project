@@ -5,7 +5,8 @@ namespace Game.Managers
     public class ClientManager : MonoBehaviour
     {
         public GameObject clientPrefab;
-        private int _numberOfInitialClients = 5;
+        [SerializeField]
+        private int numberOfInitialClients = 5;
         private GameObject _spawn;
 
         private void Start()
@@ -14,7 +15,7 @@ namespace Game.Managers
 
             if (clientPrefab != null)
             {
-                GenerateClients(_numberOfInitialClients);
+                GenerateClients(numberOfInitialClients);
             }
         }
 
@@ -22,9 +23,9 @@ namespace Game.Managers
         private void Update()
         {
             var countClients = GameObject.FindGameObjectsWithTag("Client").Length; 
-            if (countClients < 7)
+            if (countClients < numberOfInitialClients/2)
             {
-                GenerateClients(4);
+                GenerateClients(numberOfInitialClients);
             }
         }
         

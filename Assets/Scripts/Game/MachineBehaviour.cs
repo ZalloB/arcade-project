@@ -11,6 +11,15 @@ namespace Game
 
         public Machine _machine;
         private List<Client> _clients;
+
+        [SerializeField]
+        private int moneyCost;
+        [SerializeField]
+        private int sellPrice;
+        [SerializeField]
+        private int moneyGame;
+        [SerializeField]
+        private int spendTime;
         
         private GameLevelManager _gameLevelManager;
         
@@ -18,7 +27,7 @@ namespace Game
         {
             if (_machine == null)
             {
-                _machine = new Machine(1200, 900, 20, 5);
+                _machine = new Machine(moneyCost, sellPrice, moneyGame, spendTime);
             }
             _clients = new List<Client>();
             
@@ -36,21 +45,21 @@ namespace Game
         {
             var clientBehaviour = _gameObjectClient.GetComponent<ClientBehaviour>();
 
-            _clients.Add(clientBehaviour.getClient());
+            _clients.Add(clientBehaviour.GetClient());
             clientBehaviour.playing = true;
-            clientBehaviour.restClientMoney(_machine.MoneyGame);
+            clientBehaviour.RestClientMoney(_machine.MoneyGame);
             _machine.Full = true;
             StartCoroutine(nameof(spendClientTime), clientBehaviour);
-            _gameLevelManager.makePurchase(_machine.MoneyGame);
+            _gameLevelManager.MakeMachinePurchase(_machine.MoneyGame);
 
-            _clients.Remove(clientBehaviour.getClient());
+            _clients.Remove(clientBehaviour.GetClient());
             clientBehaviour.playing = false;
         }
 
         private IEnumerator spendClientTime(ClientBehaviour clientBehaviour)
         {
             yield return new WaitForSeconds(_machine.SpendTime);
-            clientBehaviour.notBusy();
+            clientBehaviour.NotBusy();
             _machine.Full = false;
         }
 
@@ -58,7 +67,10 @@ namespace Game
         {
             return _machine.Full != null;
         }
-        
-        
+
+        public int getMoneyCost()
+        {
+            return moneyCost;
+        }
     }
 }

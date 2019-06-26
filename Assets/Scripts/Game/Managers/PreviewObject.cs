@@ -6,21 +6,47 @@ namespace Game.Managers
 {
     public class PreviewObject : MonoBehaviour
     {
-        public bool foundation;
-        public List<Collider> col = new List<Collider>();
         public Material green;
         public Material red;
-        public bool IsBuildable;
+
+        public bool isBuildable;
+        private MeshRenderer _meshRenderer;
 
         private void Start()
         {
-            IsBuildable = true;
+            isBuildable = false;
+            _meshRenderer = GetComponent<MeshRenderer>();
         }
 
         private void Update()
         {
-            //TODO: check with a raycast to the floor, if is a buildable floor to places de preview object and change de color
+
+            var layerMask = 1 << 10;
+            layerMask = ~layerMask;
+
+            var direction = Vector3.down;
+            var start = transform.position;
+            start.y += 0.1f;
             
+            Debug.DrawRay(start, direction , Color.green);
+            
+            if (Physics.Raycast(transform.position, direction, out var hit, Mathf.Infinity, layerMask))
+            {
+                if (hit.transform.tag.Equals("Buildable"))
+                {
+                    isBuildable = true;
+                    _meshRenderer.material = green;
+                }
+                else
+                {
+                    isBuildable = false;
+                    _meshRenderer.material = red;
+                }
+            }else
+            {
+                isBuildable = false;
+                _meshRenderer.material = red;
+            }
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Game.Managers;
 using Game.Models;
 using UnityEngine;
@@ -43,16 +44,14 @@ namespace Game
 
         private void FillActualNeeds()
         {
-            var machine = _gameLevelManager.shopMachines.FirstOrDefault
-            (m => !m.GetComponent<MachineBehaviour>()._machine.Full && 
-                  m.GetComponent<MachineBehaviour>()._machine.MoneyGame <= _client.Money); 
+            var machine = GetFreeMachine(); 
             
             if ( _client.Money > 0 && !_client.Busy)
             {
                 if (machine != null && Vector3.Distance(transform.position, machine.gameObject.transform.position) > 1)
                 {
                     _navMeshAgent.destination = machine.gameObject.transform.position;
-                    isBusy();
+                    IsBusy();
                 }
             }else if ((_client.Money <= 0 || machine == null ) && !_client.Busy)
             {
@@ -60,32 +59,41 @@ namespace Game
             }
         }
 
-        public Client getClient()
+        private GameObject GetFreeMachine()
+        {
+            var auxList = _gameLevelManager.getShopMachines().OrderBy(i => Random.value).ToList();
+            
+            return auxList.FirstOrDefault
+            (m => !m.GetComponent<MachineBehaviour>()._machine.Full && 
+                  m.GetComponent<MachineBehaviour>()._machine.MoneyGame <= _client.Money);
+        }
+
+        public Client GetClient()
         {
             return _client;
         }
 
-        public void isBusy()
+        public void IsBusy()
         {
             _client.Busy = true;
         }
         
-        public void notBusy()
+        public void NotBusy()
         {
             _client.Busy = false;
         }
 
-        public void restClientMoney(double cost)
+        public void RestClientMoney(double cost)
         {
             _client.Money -= cost;
         }
 
-        private void OnCollisionStay(Collision other)
+        private void OnCollisionEnter(Collision other)
         {
             if (other.gameObject.tag.Equals("Machine") && !playing)
             {
                 Debug.Log("Collision Machine");
-               _gameLevelManager.shopMachines.Find(m => other.gameObject).GetComponent<MachineBehaviour>().getClient(gameObject);
+               _gameLevelManager.getShopMachines().Find(m => other.gameObject).GetComponent<MachineBehaviour>().getClient(gameObject);
             }
         }
     }

@@ -25,6 +25,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23bdbbd7a267460ba5072c5f133c5252, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moneyCost: 1200
+  sellPrice: 900
+  moneyGame: 25
+  spendTime: 5
+--- !u!208 &6750339863941557746
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4139993601986518002}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 1, y: 2.045, z: 1}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: -0.006, y: 2.062, z: 0.21300001}
+  m_TimeToStationary: 0.5
 --- !u!1001 &4139181308961410260
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -35,6 +55,10 @@ PrefabInstance:
     - target: {fileID: 1518731832268582, guid: a796a082b54ce5649b96793b4a3e96c4, type: 3}
       propertyPath: m_Name
       value: ArcadeStandardAlienTon Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 1518731832268582, guid: a796a082b54ce5649b96793b4a3e96c4, type: 3}
+      propertyPath: m_TagString
+      value: Machine
       objectReference: {fileID: 0}
     - target: {fileID: 4311636007216396, guid: a796a082b54ce5649b96793b4a3e96c4, type: 3}
       propertyPath: m_LocalPosition.x

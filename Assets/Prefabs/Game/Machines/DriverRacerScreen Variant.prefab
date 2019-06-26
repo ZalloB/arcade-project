@@ -25,6 +25,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23bdbbd7a267460ba5072c5f133c5252, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moneyCost: 2000
+  sellPrice: 1400
+  moneyGame: 40
+  spendTime: 6
+--- !u!208 &4499377875036964377
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8401092998059825711}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 1.6400001, y: 2, z: 2.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: -0.067, y: 2.026, z: -0.21100001}
+  m_TimeToStationary: 0.5
 --- !u!1001 &8399679428825906023
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -34,7 +54,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1981860115800392, guid: d52a8ababda6aa545aafc99d8c0da0ca, type: 3}
       propertyPath: m_Name
-      value: DriverRacerScreen
+      value: DriverRacerScreen Variant
       objectReference: {fileID: 0}
     - target: {fileID: 1981860115800392, guid: d52a8ababda6aa545aafc99d8c0da0ca, type: 3}
       propertyPath: m_TagString

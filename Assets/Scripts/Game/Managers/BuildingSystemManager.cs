@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Game.Models;
 using UnityEngine;
@@ -6,37 +7,66 @@ namespace Game.Managers
 {
     public class BuildingSystemManager : MonoBehaviour
     {
-        public List<BuildPreviewObject> objects = new List<BuildPreviewObject>();
-        public BuildPreviewObject currentObject;
-        private Vector3 currentPos;
-        public Transform currentPreview;
+        [SerializeField]
+        private List<GameObject> previewObjects = new List<GameObject>();
+        
+        [SerializeField]
+        private List<GameObject> objects = new List<GameObject>();
+        
+        private Vector3 _currentPos;
+        private Quaternion _currentRotation;
+        
+        public GameObject currentPreview;
 
-        public Transform cam;
-        public RaycastHit hit;
-        public LayerMask layer;
+        private int _selectObjectIndex;
+        
+        public bool isBuilding;
 
-        public float offset = 1.0f;
-        public float gridSize = 1.0f;
-
-        public bool IsBuilding;
-
+        public bool isSelling;
+        
         private Camera _camera;
+
+        private GameLevelManager _gameLevelManager;
 
         private void Start()
         {
             _camera = Camera.main;
-            
-            currentObject = objects[0];
-            ChangeCurrentBuilding();
+            _gameLevelManager = GetComponent<GameLevelManager>();
+//            currentObject = previewObjects[0];
+//            ChangeCurrentBuilding();
         }
 
         private void Update()
         {
-            if (IsBuilding)
+            if (isBuilding)
             {
-                showPreview();
+                ShowPreview();
 
-                if (Input.GetButtonDown("fire1"))
+                if (Input.GetButtonDown("Fire2"))
+                {
+                    rotatePreviewObject();
+                }
+                
+                if (Input.GetButtonDown("Fire1"))
+                {
+                    InteractWithFloor();
+                }
+            }
+        }
+
+        private void rotatePreviewObject()
+        {
+            currentPreview.transform.Rotate(0, 90, 0);
+            _currentRotation = currentPreview.transform.rotation;
+        }
+
+        private void InteractWithFloor()
+        {
+            var ray = _camera.ScreenPointToRay(Input.mousePosition);
+            
+            if (Physics.Raycast(ray, out var hit))
+            {
+                if (!UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
                 {
                     Build();
                 }
@@ -44,36 +74,55 @@ namespace Game.Managers
         }
 
 
-        public void ChangeCurrentBuilding()
+        private void ChangePreviewBuilding(GameObject gameObjectPrev)
         {
-            var curPrev = Instantiate(currentObject.preview, currentPos, Quaternion.identity);
-            currentPreview = curPrev.transform;
+            currentPreview = Instantiate(gameObjectPrev, _currentPos, Quaternion.identity);
         }
 
 
-        private void showPreview()
+        private void ShowPreview()
         {
-            currentPos =
-                _camera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, 0.045f, Input.mousePosition.z));
-            currentPreview.position = currentPos;
-        }
+            var temp = Input.mousePosition;
+            temp.z = 3f; // Set this to be the distance you want the object to be placed in front of the camera.
 
-        public void Build()
+            var pos = _camera.ScreenToWorldPoint(temp);
+            pos.y = 0.05f;
+            currentPreview.transform.position = pos;
+            _currentPos = pos;
+        } 
+
+        private void Build()
         {
-            var previewObj = currentPreview.GetComponent<PreviewObject>();
-            if (previewObj.IsBuildable)
+            var futureObject = objects[_selectObjectIndex];
+            
+            var machineBehaviour = futureObject.GetComponent<MachineBehaviour>();
+            var money = machineBehaviour.getMoneyCost();
+
+            if (!currentPreview.GetComponent<PreviewObject>().isBuildable || !_gameLevelManager.checkPlayerPurchase(money)) return;
+            
+            Destroy(currentPreview.gameObject);
+            var instantiateObject = Instantiate(futureObject, _currentPos,_currentRotation);
+            
+            _gameLevelManager.MakePurchase(money);
+
+            if (instantiateObject.tag.Equals("Machine"))
             {
-//              TODO: Instantiate(currentFinalObject, currentPos, Quaternion.identity);
+                _gameLevelManager.defaultShop.Machines.Add(instantiateObject);
             }
+            isBuilding = false;
+        }
+
+        public void OnBuildMode(int indexObject)
+        {
+
+            _selectObjectIndex = indexObject;
+            isBuilding = true;
+            ChangePreviewBuilding(previewObjects[indexObject]);
+            _currentRotation = currentPreview.transform.rotation;
+            
         }
     }
 }
 
 
-public class BuildPreviewObject
-{
-    public string name;
-    public GameObject preview;
-    public int gold;
-}
 

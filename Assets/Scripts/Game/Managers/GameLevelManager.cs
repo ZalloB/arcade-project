@@ -11,32 +11,36 @@ namespace Game.Managers
     {
 
         private Player _player;
-        public  Shop _defaultShop; 
+        public  Shop defaultShop; 
         private double _startMoney = 10000; // more or less for adjust the difficulty
         private double _costLocalRent = 400;
         private string _playerName = "Arcade Project";
         private UiPlayerGameManager _uiPlayerGameManager;
-        public List<GameObject> shopMachines = new List<GameObject>();
-        public List<GameObject> shopDecorativeObjects = new List<GameObject>();
+        
+        [SerializeField]
+        private List<GameObject> shopMachines = new List<GameObject>();
+        
+        [SerializeField]
+        private List<GameObject> shopDecorativeObjects = new List<GameObject>();
 
     
         private void OnEnable()
         {
-            CalendarGameManager.OnMonthPass += managePlayerMoney;
+            CalendarGameManager.OnMonthPass += ManagePlayerMoney;
         }
 
 
         private void OnDisable()
         {
-            CalendarGameManager.OnMonthPass -= managePlayerMoney;
+            CalendarGameManager.OnMonthPass -= ManagePlayerMoney;
         }
         
         private void Start()
         {
             if (_player == null)
             {
-                _defaultShop = new Shop(shopMachines, shopDecorativeObjects);
-                _player = new Player(_playerName, _startMoney, _defaultShop);
+                defaultShop = new Shop(shopMachines, shopDecorativeObjects);
+                _player = new Player(_playerName, _startMoney, defaultShop);
             }
 
             if (_uiPlayerGameManager == null)
@@ -58,17 +62,35 @@ namespace Game.Managers
         }
 
 
-        private void managePlayerMoney()
+        private void ManagePlayerMoney()
         {
             // once a month manage the money of the player
             Debug.Log("Remove money: rental");
             _player.Money -= _costLocalRent;
         }
 
-        public void makePurchase(double money)
+        public void MakeMachinePurchase(double money)
         {
             Debug.Log("Add money: purchase");
             _player.Money += money;
+        }
+        
+        public void MakePurchase(double money)
+        {
+            Debug.Log("Remove money: purchase");
+            _player.Money -= money;
+        }
+
+        public List<GameObject> getShopMachines()
+        {
+            return defaultShop.Machines;
+        }
+
+
+        public bool checkPlayerPurchase(int price)
+        {
+            Debug.Log("Player money: " + _player.Money + " price: " + price);
+            return _player.Money > price;
         }
     }
 }
