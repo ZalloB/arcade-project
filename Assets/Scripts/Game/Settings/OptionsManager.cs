@@ -17,12 +17,11 @@ namespace Game.Settings
         public Slider musicVolumeSlider;
         public Slider sfxVolumeSlider;
         public Slider ambientVolumeSlider;
-        public Slider playerVolumeSlider;
 
         public Resolution[] resolutions;
         public Options gameSettings;
 
-        public AudioMixer AudioMixer;
+        public AudioMixer audioMixer;
 
         void OnEnable()
         {
@@ -37,9 +36,9 @@ namespace Game.Settings
             musicVolumeSlider.onValueChanged.AddListener(delegate { OnMusicVolumeChange(); });
             sfxVolumeSlider.onValueChanged.AddListener(delegate { OnSfxVolumeChange(); });
             ambientVolumeSlider.onValueChanged.AddListener(delegate { OnAmbientVolumeChange(); });
-            playerVolumeSlider.onValueChanged.AddListener(delegate { OnPlayerVolumeChange(); });
 
             resolutions = Screen.resolutions;
+            
             foreach (var resolution in resolutions) {
                 resolutionDropdown.options.Add(new Dropdown.OptionData(resolution.ToString()));
             }
@@ -75,35 +74,30 @@ namespace Game.Settings
         public void OnMasterVolumeChange()
         {
             gameSettings.masterVolume = masterVolumeSlider.value;
-            AudioMixer.SetFloat("MasterVolume", masterVolumeSlider.value);
+            audioMixer.SetFloat("MasterVolume", masterVolumeSlider.value);
         }
 
         public void OnMusicVolumeChange()
         {
             gameSettings.musicVolume = musicVolumeSlider.value;
-            AudioMixer.SetFloat("MusicVolume", musicVolumeSlider.value);
+            audioMixer.SetFloat("MusicVolume", musicVolumeSlider.value);
         }
 
         public void OnSfxVolumeChange()
         {
             gameSettings.sfxVolume = sfxVolumeSlider.value;
-            AudioMixer.SetFloat("SfxVolume", sfxVolumeSlider.value);
+            audioMixer.SetFloat("SfxVolume", sfxVolumeSlider.value);
 
         }
         public void OnAmbientVolumeChange()
         {
             gameSettings.ambientVolume = ambientVolumeSlider.value;
-            AudioMixer.SetFloat("AmbientVolume", ambientVolumeSlider.value);
-        }
-        public void OnPlayerVolumeChange()
-        {
-            gameSettings.playerVolume = playerVolumeSlider.value;
-            AudioMixer.SetFloat("PlayerVolume", playerVolumeSlider.value);
+            audioMixer.SetFloat("AmbientVolume", ambientVolumeSlider.value);
         }
 
         public void saveSettings()
         {
-            string jsonData = JsonUtility.ToJson(gameSettings, true);
+            var jsonData = JsonUtility.ToJson(gameSettings, true);
             File.WriteAllText(Application.persistentDataPath + "/gameSettings.json", jsonData);
         }
 
@@ -122,7 +116,7 @@ namespace Game.Settings
             musicVolumeSlider.value = gameSettings.musicVolume;
             sfxVolumeSlider.value = gameSettings.sfxVolume;
             ambientVolumeSlider.value = gameSettings.ambientVolume;
-            playerVolumeSlider.value = gameSettings.playerVolume;
+
         }
     }
 }

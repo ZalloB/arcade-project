@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 namespace Game.Managers
 {
@@ -9,14 +10,12 @@ namespace Game.Managers
         private int numberOfInitialClients = 5;
         private GameObject _spawn;
 
+        [SerializeField]
+        private int delayTime = 1;
+        
         private void Start()
         {
             _spawn = GameObject.FindGameObjectWithTag("Spawn");
-
-            if (clientPrefab != null)
-            {
-                GenerateClients(numberOfInitialClients);
-            }
         }
 
         // Update is called once per frame
@@ -33,9 +32,15 @@ namespace Game.Managers
 
         private void GenerateClients(int quantity)
         {
+            StartCoroutine(nameof(InstantiateClients), quantity);
+        }
+
+        private IEnumerator InstantiateClients(int quantity)
+        {
             for (var i = 0; i < quantity; i++)
             {
                 Instantiate(clientPrefab, _spawn.transform.position, Quaternion.identity);
+                yield return new WaitForSeconds(delayTime);
             }
         }
     }

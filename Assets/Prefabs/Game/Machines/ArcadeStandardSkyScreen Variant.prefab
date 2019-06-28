@@ -11,24 +11,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 3.5554886, y: 2.9527614, z: 2.068224}
-  m_Center: {x: 0.032002926, y: 1.4936863, z: 1.5058625}
---- !u!114 &3848759982074087929
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4145938448367144206}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 23bdbbd7a267460ba5072c5f133c5252, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moneyCost: 1050
-  sellPrice: 850
-  moneyGame: 20
-  spendTime: 4
+  m_Size: {x: 2.0000005, y: 4.089268, z: 2.5068245}
+  m_Center: {x: -0.0058375597, y: 2.0619395, z: 0.21266061}
 --- !u!208 &9204652783782881272
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -45,6 +29,68 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: -0.006, y: 2.062, z: 0.21300001}
   m_TimeToStationary: 0.5
+--- !u!1 &4683980999128335250
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4440512796718856240}
+  - component: {fileID: 6699579993214645618}
+  - component: {fileID: 3830920983122297186}
+  m_Layer: 0
+  m_Name: Controller
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4440512796718856240
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4683980999128335250}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 2.03}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4151004617086387796}
+  m_RootOrder: 14
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6699579993214645618
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4683980999128335250}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23bdbbd7a267460ba5072c5f133c5252, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moneyCost: 1050
+  sellPrice: 850
+  moneyGame: 20
+  spendTime: 4
+  playingSpot: {fileID: 4440512796718856240}
+--- !u!65 &3830920983122297186
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4683980999128335250}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.9639087, y: 4.23425, z: 1.4087993}
+  m_Center: {x: -0.03429979, y: 2.118629, z: 0.20439953}
 --- !u!1001 &4146382455340672382
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -109,6 +155,12 @@ PrefabInstance:
 --- !u!1 &4145938448367144206 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1053137036175472, guid: 01ef96d836105ae45a250c3d2d0ddc14,
+    type: 3}
+  m_PrefabInstance: {fileID: 4146382455340672382}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &4151004617086387796 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4992243006890794, guid: 01ef96d836105ae45a250c3d2d0ddc14,
     type: 3}
   m_PrefabInstance: {fileID: 4146382455340672382}
   m_PrefabAsset: {fileID: 0}

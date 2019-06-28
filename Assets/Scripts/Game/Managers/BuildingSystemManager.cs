@@ -76,6 +76,10 @@ namespace Game.Managers
 
         private void ChangePreviewBuilding(GameObject gameObjectPrev)
         {
+            if (currentPreview != null)
+            {
+                Destroy(currentPreview.gameObject);
+            }
             currentPreview = Instantiate(gameObjectPrev, _currentPos, Quaternion.identity);
         }
 
@@ -95,11 +99,10 @@ namespace Game.Managers
         {
             var futureObject = objects[_selectObjectIndex];
             
-            var machineBehaviour = futureObject.GetComponent<MachineBehaviour>();
-            var money = machineBehaviour.getMoneyCost();
-
-            if (!currentPreview.GetComponent<PreviewObject>().isBuildable || !_gameLevelManager.checkPlayerPurchase(money)) return;
+            var machineBehaviour = futureObject.GetComponentInChildren<MachineBehaviour>();
+            var money = machineBehaviour.GetMoneyCost();
             
+            if (!currentPreview.GetComponentInChildren<PreviewObject>().isBuildable || !_gameLevelManager.checkPlayerPurchase(money)) return;
             Destroy(currentPreview.gameObject);
             var instantiateObject = Instantiate(futureObject, _currentPos,_currentRotation);
             

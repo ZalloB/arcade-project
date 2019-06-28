@@ -13,7 +13,6 @@
         public float musicVolume;
         public float sfxVolume;
         public float ambientVolume;
-        public float playerVolume;
         #endregion
     }
 }

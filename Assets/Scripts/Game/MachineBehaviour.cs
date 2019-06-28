@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Game.Managers;
@@ -22,6 +23,8 @@ namespace Game
         private int spendTime;
         
         private GameLevelManager _gameLevelManager;
+
+        public Transform playingSpot;
         
         private void Start()
         {
@@ -35,42 +38,53 @@ namespace Game
         }
 
 
-//        private void Update()
-//        {
-//         
-//        }
-
-
-        public void getClient(GameObject _gameObjectClient)
+        private void Update()
         {
-            var clientBehaviour = _gameObjectClient.GetComponent<ClientBehaviour>();
+            Debug.Log("MACHINE : ocupada " + _machine.Full + " precio " + _machine.MoneyCost);
+        }
 
-            _clients.Add(clientBehaviour.GetClient());
-            clientBehaviour.playing = true;
-            clientBehaviour.RestClientMoney(_machine.MoneyGame);
+        private IEnumerator SpendClientTime(GameObject gameObjectClient)
+        {
             _machine.Full = true;
-            StartCoroutine(nameof(spendClientTime), clientBehaviour);
-            _gameLevelManager.MakeMachinePurchase(_machine.MoneyGame);
+           
+            var clientBehaviour = gameObjectClient.GetComponent<ClientBehaviour>();
+            _clients.Add(clientBehaviour.GetClient());
 
-            _clients.Remove(clientBehaviour.GetClient());
-            clientBehaviour.playing = false;
-        }
-
-        private IEnumerator spendClientTime(ClientBehaviour clientBehaviour)
-        {
+            clientBehaviour.RestClientMoney(_machine.MoneyGame);
             yield return new WaitForSeconds(_machine.SpendTime);
+            
+            _gameLevelManager.MakeMachinePurchase(_machine.MoneyGame);
             clientBehaviour.NotBusy();
+           
+            _clients.Remove(clientBehaviour.GetClient());
+
+            clientBehaviour.GoRestArea();
+            
+            Debug.Log("Machine esta ocupada ?? " + _machine.Full);
+            
             _machine.Full = false;
+
         }
 
-        public bool checkFullMachine()
+
+        public bool CheckFullMachine()
         {
-            return _machine.Full != null;
+            return _machine.Full;
         }
 
-        public int getMoneyCost()
+        public int GetMoneyCost()
         {
             return moneyCost;
+        }
+
+
+        private void OnTriggerStay(Collider other)
+        {
+            if (other.gameObject.tag.Equals("Client") && !_machine.Full && !other.gameObject.GetComponent<ClientBehaviour>().isResting)
+            {
+               Debug.Log("Collision Machine");
+               StartCoroutine(nameof(SpendClientTime), other.gameObject);
+            }
         }
     }
 }
