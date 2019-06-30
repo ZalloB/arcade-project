@@ -1,0 +1,9 @@
+en:
+  # Buttons actions verbs
+  LABEL_BUTTON_NEW_GAME: New game
+  LABEL_BUTTON_LOAD_GAME: Load game
+  LABEL_BUTTON_CONTINUE_GAME: Continue game
+  LABEL_BUTTON_EXIT: Exit
+  LABEL_BUTTON_BACK: Back
+  LABEL_BUTTON_AUDIO: Audio
+  LABEL_BUTTON_GRAPHICS: Graphics

@@ -3,7 +3,14 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - uiManager
+  - Client
+  - Machine
+  - Despawn
+  - Spawn
+  - Buildable
+  - StayArea
   layers:
   - Default
   - TransparentFX
@@ -14,7 +21,7 @@ TagManager:
   - 
   - 
   - PostProcessing
-  - 
+  - Buildable
   - 
   - 
   - 

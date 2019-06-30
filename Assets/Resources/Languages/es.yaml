@@ -1,0 +1,9 @@
+es:
+  # Buttons actions verbs
+  LABEL_BUTTON_NEW_GAME: Nueva partida
+  LABEL_BUTTON_LOAD_GAME: Cargar partida
+  LABEL_BUTTON_CONTINUE_GAME: Continuar partida
+  LABEL_BUTTON_EXIT: Salir
+  LABEL_BUTTON_BACK: Atras
+  LABEL_BUTTON_AUDIO: Sonido
+  LABEL_BUTTON_GRAPHICS: Gráficos
